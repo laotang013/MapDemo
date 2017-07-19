@@ -10,6 +10,8 @@
 		C95784BE1F1EFF490070E4DA /* KCAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C95784BD1F1EFF490070E4DA /* KCAnnotation.m */; };
 		C95784C11F1F35B40070E4DA /* KCCalloutAnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C95784C01F1F35B40070E4DA /* KCCalloutAnotation.m */; };
 		C95784C41F1F36530070E4DA /* KCCalloutAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C95784C31F1F36530070E4DA /* KCCalloutAnnotationView.m */; };
+		C95784C71F1F789E0070E4DA /* GradientPolylineOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = C95784C61F1F789E0070E4DA /* GradientPolylineOverlay.m */; };
+		C95784CA1F1F7F1B0070E4DA /* GradientPolylineRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = C95784C91F1F7F1B0070E4DA /* GradientPolylineRenderer.m */; };
 		C97DF6981F1E125E00D0A557 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C97DF6971F1E125E00D0A557 /* main.m */; };
 		C97DF69B1F1E125E00D0A557 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C97DF69A1F1E125E00D0A557 /* AppDelegate.m */; };
 		C97DF69E1F1E125E00D0A557 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C97DF69D1F1E125E00D0A557 /* ViewController.m */; };
@@ -44,6 +46,10 @@
 		C95784C01F1F35B40070E4DA /* KCCalloutAnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCCalloutAnotation.m; sourceTree = "<group>"; };
 		C95784C21F1F36530070E4DA /* KCCalloutAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCCalloutAnnotationView.h; sourceTree = "<group>"; };
 		C95784C31F1F36530070E4DA /* KCCalloutAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCCalloutAnnotationView.m; sourceTree = "<group>"; };
+		C95784C51F1F789E0070E4DA /* GradientPolylineOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientPolylineOverlay.h; sourceTree = "<group>"; };
+		C95784C61F1F789E0070E4DA /* GradientPolylineOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientPolylineOverlay.m; sourceTree = "<group>"; };
+		C95784C81F1F7F1B0070E4DA /* GradientPolylineRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientPolylineRenderer.h; sourceTree = "<group>"; };
+		C95784C91F1F7F1B0070E4DA /* GradientPolylineRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientPolylineRenderer.m; sourceTree = "<group>"; };
 		C97DF6931F1E125E00D0A557 /* MapDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C97DF6971F1E125E00D0A557 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C97DF6991F1E125E00D0A557 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -120,6 +126,10 @@
 				C95784C01F1F35B40070E4DA /* KCCalloutAnotation.m */,
 				C95784C21F1F36530070E4DA /* KCCalloutAnnotationView.h */,
 				C95784C31F1F36530070E4DA /* KCCalloutAnnotationView.m */,
+				C95784C51F1F789E0070E4DA /* GradientPolylineOverlay.h */,
+				C95784C61F1F789E0070E4DA /* GradientPolylineOverlay.m */,
+				C95784C81F1F7F1B0070E4DA /* GradientPolylineRenderer.h */,
+				C95784C91F1F7F1B0070E4DA /* GradientPolylineRenderer.m */,
 				C97DF69F1F1E125E00D0A557 /* Main.storyboard */,
 				C97DF6A21F1E125E00D0A557 /* Assets.xcassets */,
 				C97DF6A41F1E125E00D0A557 /* LaunchScreen.storyboard */,
@@ -290,10 +300,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C97DF69E1F1E125E00D0A557 /* ViewController.m in Sources */,
+				C95784C71F1F789E0070E4DA /* GradientPolylineOverlay.m in Sources */,
 				C97DF69B1F1E125E00D0A557 /* AppDelegate.m in Sources */,
 				C95784C41F1F36530070E4DA /* KCCalloutAnnotationView.m in Sources */,
 				C95784BE1F1EFF490070E4DA /* KCAnnotation.m in Sources */,
 				C97DF6981F1E125E00D0A557 /* main.m in Sources */,
+				C95784CA1F1F7F1B0070E4DA /* GradientPolylineRenderer.m in Sources */,
 				C95784C11F1F35B40070E4DA /* KCCalloutAnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

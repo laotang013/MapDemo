@@ -12,6 +12,8 @@
 #import "KCAnnotation.h"
 #import "KCCalloutAnotation.h"
 #import "KCCalloutAnnotationView.h"
+#import "GradientPolylineRenderer.h"
+#import "GradientPolylineOverlay.h"
 @interface ViewController ()<CLLocationManagerDelegate,MKMapViewDelegate>
 /**定位时间管理类*/
 @property(nonatomic,strong)CLLocationManager *locationManager;
@@ -297,27 +299,45 @@
 //                [self.mapView addAnnotation:annotation];
                 //添加路线 让我们可以在地图上放一层遮罩，如果要放一组遮罩，可以用addOverlays
                 //只接受坐标相关的方法,而轨迹渐变自然要通过速度控制。但传不进去，所以重写一个实现MKOverlay协议的类
+                
                 [self.mapView addOverlay:step.polyline];
+                
+                
                 sumDistance += step.distance;
             }
             NSLog(@"总距离:%ld",sumDistance);
         }
     }];
 }
+
 //划线的代理方法
 -(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
 {
-    if ([overlay isKindOfClass:[MKPolyline class]]) {
-        MKPolylineRenderer *polylineRender = [[MKPolylineRenderer alloc]initWithPolyline:overlay];
-        polylineRender.strokeColor = [UIColor redColor];
-        polylineRender.lineWidth = 5;
-        return polylineRender;
-    }else
+  //  if ([overlay isKindOfClass:[MKPolyline class]]) {
+//        MKPolylineRenderer *polylineRender = [[MKPolylineRenderer alloc]initWithPolyline:overlay];
+//        polylineRender.strokeColor = [UIColor redColor];
+//        polylineRender.lineWidth = 5;
+        
+//       //
+//    }else
+
+if([overlay isKindOfClass:[GradientPolylineOverlay class]]){
+    //轨迹
+    GradientPolylineRenderer *polylineRenderer = [[GradientPolylineRenderer alloc] initWithOverlay:overlay];
+    polylineRenderer.lineWidth = 8.f;
+    return polylineRenderer;
+}
     {
         return nil;
     }
 
 }
+
+-(void)smoothTrack:(CLLocation *)location
+{
+    
+}
+
 #pragma mark - **************** 点击添加大头针
 -(void)addAnnotation
 {
