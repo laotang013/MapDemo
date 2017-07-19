@@ -31,6 +31,7 @@
     //案例2
     //初始化UI
     [self setupSubViews];
+    [self drawLine];
 
 }
 
@@ -138,6 +139,7 @@
 -(void)getCoordinateByAddress:(NSString *)addressStr
 {
     [self.geocoder geocodeAddressString:addressStr completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        //定位框架中地标类，封装了详细的地理信息。
         CLPlacemark *placeMark = [placemarks firstObject];
         CLLocation *location = placeMark.location;
         CLLocationCoordinate2D coordinate = location.coordinate;
@@ -226,8 +228,6 @@
         }
     }];
 }
-
-
 /*
  //自定义大头针 显示大头针时触发，返回大头针视图
  -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
@@ -255,6 +255,12 @@
 
  */
 
+
+#pragma mark - **************** 划线
+-(void)drawLine
+{
+    //思路: 1.首先需要获取到两个位置 起点和终点的经纬度 2.给出起点和终点的详细信息 3.包装起点的节点和终点的节点 4.进行路线请求 5.发送请求 6.计算 7.要实现系统的代理方法 画线条
+}
 #pragma mark - **************** 注释
 /*
  http://www.cnblogs.com/kenshincui/p/4125570.html
@@ -283,7 +289,21 @@
              - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation;方法可以返回一个大头针视图，只要实现这个方法并在这个方法中定义一个大头针视图MKAnnotationView对象并设置相关属性就可以改变默认大头针的样式。
          3.4自定义大头针
              自定义大头针设置大头针模型布局界面时,此时需要注意新增大头针的位置通常需要偏移一定距离才能达到理想的效果。
+ 
+       修改大头针详情视图:
+            1.点击一个大头针A时重新在A的坐标处添加另一个大头针B作为详情模型(注意此时将A对应的大头针视图canShowCallout设置为false)然后在- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation;代理方法中判断大头针类型，如果是B则重写MKAnnotationView(可以自定义一个类C继承与MKAnnotationView)返回大头针B.
+           2.定义一个大头针视图C继承与MKAnnotationView在自定义大头针视图中添加自己的控件，完成自定义布局.
+ 
+ CLLocation：用于表示位置信息，包含地理坐标、海拔等信息，包含在CoreLoaction框架中。
+ 
+ MKUserLocation：一个特殊的大头针，表示用户当前位置。
+ 
+ CLPlacemark：定位框架中地标类，封装了详细的地理信息。
+ 
+ MKPlacemark：类似于CLPlacemark，只是它在MapKit框架中，可以根据CLPlacemark创建MKPlacemark
     
+   4.地图路线：
+ 
  */
 
 

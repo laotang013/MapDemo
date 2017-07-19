@@ -86,7 +86,7 @@
     float backgroundWidth = CGRectGetMaxX(self.detailLabel.frame) + kSpaceing;
     float backgroundHeight = self.iconView.frame.size.height + 2*kSpaceing;
     self.backgroundView.frame = CGRectMake(0, 0, backgroundWidth, backgroundHeight);
-    self.bounds = CGRectMake(0, 0, backgroundWidth, backgroundHeight);
+    self.bounds = CGRectMake(0, 0, backgroundWidth, backgroundHeight+kViewOffset);
 }
 
 #pragma mark - **************** 懒加载
