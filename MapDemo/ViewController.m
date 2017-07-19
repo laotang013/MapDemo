@@ -19,6 +19,8 @@
 @property(nonatomic,strong)CLGeocoder *geocoder;
 /**地图控件*/
 @property(nonatomic,strong)MKMapView *mapView;
+/**Tap方法*/
+@property(nonatomic,strong)UITapGestureRecognizer *tapGes;
 @end
 
 @implementation ViewController
@@ -32,7 +34,8 @@
     //初始化UI
     [self setupSubViews];
     [self drawLine];
-
+    //点击添加大头针
+    [self addAnnotation];
 }
 
 
@@ -292,7 +295,7 @@
 //                
 //                //添加大头针
 //                [self.mapView addAnnotation:annotation];
-                //添加路线
+                //添加路线 让我们可以在地图上放一层遮罩，如果要放一组遮罩，可以用addOverlays
                 [self.mapView addOverlay:step.polyline];
                 sumDistance += step.distance;
             }
@@ -314,7 +317,7 @@
     }
 
 }
-
+#pragma mark - **************** 点击添加大头针
 
 #pragma mark - **************** 注释
 /*
