@@ -18,4 +18,12 @@
 /**添加一个图片属性 在创建大头针视图时使用*/
 @property(nonatomic,strong)UIImage * _Nonnull image;
 
+
+/**大头针左侧视图坐标*/
+@property(nonatomic,strong)UIImage * _Nonnull icon;
+/**大头针详情描述*/
+@property(nonatomic,copy)NSString * _Nonnull detail;
+/**大头针右下角星级评价*/
+@property(nonatomic,strong)UIImage * _Nonnull rate;
+
 @end

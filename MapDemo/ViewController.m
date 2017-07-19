@@ -10,6 +10,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import "KCAnnotation.h"
+#import "KCCalloutAnotation.h"
+#import "KCCalloutAnnotationView.h"
 @interface ViewController ()<CLLocationManagerDelegate,MKMapViewDelegate>
 /**定位时间管理类*/
 @property(nonatomic,strong)CLLocationManager *locationManager;
@@ -57,20 +59,26 @@
     self.geocoder = [[CLGeocoder alloc]init];
     
     //添加大头针
-    [self addKCAnnotation:CLLocationCoordinate2DMake(39.95, 116.35) title:@"中国" subTitle:@"北京" image:@"dingweidian_map"];
-    [self addKCAnnotation:CLLocationCoordinate2DMake(39.35, 116.35) title:@"美国" subTitle:@"自由女神" image:@"icon_warnning"];
+    [self addKCAnnotation:CLLocationCoordinate2DMake(39.95, 116.35) title:@"中国" subTitle:@"北京" image:@"dingweidian_map" icon:@"location_marker" detail:@"北京标题" rate:@"pic_guangdian"];
+    [self addKCAnnotation:CLLocationCoordinate2DMake(39.35, 116.35) title:@"美国" subTitle:@"自由女神" image:@"icon_warnning" icon:@"location_marker" detail:@"自由女神标题" rate:@"pic_guangdian1_02"];
 }
 
 -(void)addKCAnnotation:(CLLocationCoordinate2D )location2D
                  title:(NSString *)title
               subTitle:(NSString *)subtitle
               image:(NSString *)imageStr
+                  icon:(NSString *)iconStr
+                detail:(NSString *)detailStr
+                  rate:(NSString *)rateStr
 {
     KCAnnotation *annotion = [[KCAnnotation alloc]init];
     annotion.coordinate = location2D;
     annotion.title = title;
     annotion.subtitle = subtitle;
     annotion.image = [UIImage imageNamed:imageStr];
+    annotion.icon = [UIImage imageNamed:iconStr];
+    annotion.detail = detailStr;
+    annotion.rate = [UIImage imageNamed:rateStr];
     [self.mapView addAnnotation:annotion];
     
 }
@@ -170,7 +178,7 @@
         MKAnnotationView *annottationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:key1];
         if (!annottationView) {
             annottationView = [[MKAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:key1];
-            annottationView.canShowCallout = true;//允许交互点击
+            //annottationView.canShowCallout = true;//允许交互点击
             //定义详情视图偏移量
             annottationView.calloutOffset = CGPointMake(0, 1);
             annottationView.leftCalloutAccessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"location_marker"]];//定义详情左视图
@@ -179,12 +187,73 @@
         //设置大头针的图片
         annottationView.image = ((KCAnnotation *)annotation).image;
         return annottationView;
-    }else
+    }else if ([annotation isKindOfClass:[KCCalloutAnotation class]])
+    {
+        KCCalloutAnnotationView *calloutView = [KCCalloutAnnotationView calloutViewWithMapView:mapView];
+        calloutView.annotation = annotation;
+        //calloutView.canShowCallout = true;
+        return calloutView;
+    }
+    else
     {
         return nil;
     }
 }
 
+-(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+    KCAnnotation *annotation = view.annotation;
+    if ([view.annotation isKindOfClass:[KCAnnotation class]]) {
+        KCCalloutAnotation *annotation1 = [[KCCalloutAnotation alloc]init];
+        annotation1.icon = annotation.icon;
+        annotation1.detail = annotation.detail;
+        annotation1.rate = annotation.rate;
+        annotation1.coordinate = annotation.coordinate;
+        [mapView addAnnotation:annotation1];
+    }
+}
+
+#pragma mark 取消选中时触发
+-(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view{
+    [self removeCustomAnnotation];
+}
+
+#pragma mark 移除所用自定义大头针
+-(void)removeCustomAnnotation{
+    [_mapView.annotations enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[KCCalloutAnotation class]]) {
+            [_mapView removeAnnotation:obj];
+        }
+    }];
+}
+
+
+/*
+ //自定义大头针 显示大头针时触发，返回大头针视图
+ -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+ {
+ //由于当前位置的标注也是一个大头针，所以此时需要判断,此代理方法返回nil返回默认的大头针
+ if ([annotation isKindOfClass:[KCAnnotation class]]) {
+ static NSString *key1 = @"AnnotationKey1";
+ MKAnnotationView *annottationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:key1];
+ if (!annottationView) {
+ annottationView = [[MKAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:key1];
+ annottationView.canShowCallout = true;//允许交互点击
+ //定义详情视图偏移量
+ annottationView.calloutOffset = CGPointMake(0, 1);
+ annottationView.leftCalloutAccessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"location_marker"]];//定义详情左视图
+ }
+ annottationView.annotation = annotation;
+ //设置大头针的图片
+ annottationView.image = ((KCAnnotation *)annotation).image;
+ return annottationView;
+ }else
+ {
+ return nil;
+ }
+ }
+
+ */
 
 #pragma mark - **************** 注释
 /*
@@ -212,6 +281,9 @@
                  coordinate（标记位置）、title（标题）、subtitle（子标题）三个属性
         3.3 自定义大头针视图:
              - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation;方法可以返回一个大头针视图，只要实现这个方法并在这个方法中定义一个大头针视图MKAnnotationView对象并设置相关属性就可以改变默认大头针的样式。
+         3.4自定义大头针
+             自定义大头针设置大头针模型布局界面时,此时需要注意新增大头针的位置通常需要偏移一定距离才能达到理想的效果。
+    
  */
 
 
