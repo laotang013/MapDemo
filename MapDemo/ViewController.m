@@ -318,6 +318,23 @@
 
 }
 #pragma mark - **************** 点击添加大头针
+-(void)addAnnotation
+{
+    //思路: 1.将获取的point转换为经纬度 2.添加大头针
+    self.tapGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(addAnnotation:)];
+    [self.mapView addGestureRecognizer:self.tapGes];
+}
+-(void)addAnnotation:(UITapGestureRecognizer *)tapGes
+{
+    //获取点击是的位置
+    CGPoint touchPoint = [tapGes locationInView:self.mapView];
+    //获取经纬度
+    CLLocationCoordinate2D touchMap = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+    MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
+    annotation.coordinate = touchMap;
+    [self.mapView addAnnotation:annotation];
+}
+
 
 #pragma mark - **************** 注释
 /*
