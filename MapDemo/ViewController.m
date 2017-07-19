@@ -259,8 +259,63 @@
 #pragma mark - **************** 划线
 -(void)drawLine
 {
+    //http://blog.csdn.net/u012701023/article/details/48832385
     //思路: 1.首先需要获取到两个位置 起点和终点的经纬度 2.给出起点和终点的详细信息 3.包装起点的节点和终点的节点 4.进行路线请求 5.发送请求 6.计算 7.要实现系统的代理方法 画线条
+    
+    CLLocationCoordinate2D start = {39.95, 116.35};
+    CLLocationCoordinate2D end = {39.35, 116.35};
+    //起点和终点的详细信息
+    MKPlacemark *startPlace = [[MKPlacemark alloc]initWithCoordinate:start];
+    MKPlacemark *endPlace =[[MKPlacemark alloc]initWithCoordinate:end];
+    //起点 终点的节点
+    MKMapItem *startItem = [[MKMapItem alloc]initWithPlacemark:startPlace];
+    MKMapItem *endItem = [[MKMapItem alloc]initWithPlacemark:endPlace];
+    MKDirectionsRequest *request = [[MKDirectionsRequest alloc]init];
+    request.source = startItem;
+    request.destination = endItem;
+    MKDirections *directions = [[MKDirections alloc]initWithRequest:request];
+    __block NSInteger sumDistance = 0;
+    //计算
+    [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse * _Nullable response, NSError * _Nullable error) {
+        if (!error) {
+            //取出一条路线
+            MKRoute *route = response.routes[0];
+            //关键节点
+            for (MKRouteStep *step in route.steps) {
+                
+                //大头针
+//                MKPointAnnotation *annotation = [[MKPointAnnotation alloc]init];
+//                annotation.coordinate = step.polyline.coordinate;
+//                annotation.title = step.polyline.title;
+//                annotation.subtitle = step.polyline.subtitle;
+//                
+//                
+//                //添加大头针
+//                [self.mapView addAnnotation:annotation];
+                //添加路线
+                [self.mapView addOverlay:step.polyline];
+                sumDistance += step.distance;
+            }
+            NSLog(@"总距离:%ld",sumDistance);
+        }
+    }];
 }
+//划线的代理方法
+-(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
+{
+    if ([overlay isKindOfClass:[MKPolyline class]]) {
+        MKPolylineRenderer *polylineRender = [[MKPolylineRenderer alloc]initWithPolyline:overlay];
+        polylineRender.strokeColor = [UIColor redColor];
+        polylineRender.lineWidth = 5;
+        return polylineRender;
+    }else
+    {
+        return nil;
+    }
+
+}
+
+
 #pragma mark - **************** 注释
 /*
  http://www.cnblogs.com/kenshincui/p/4125570.html
