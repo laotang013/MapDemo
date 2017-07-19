@@ -35,7 +35,7 @@
     [self setupSubViews];
     [self drawLine];
     //点击添加大头针
-    [self addAnnotation];
+    //[self addAnnotation];
 }
 
 
@@ -296,6 +296,7 @@
 //                //添加大头针
 //                [self.mapView addAnnotation:annotation];
                 //添加路线 让我们可以在地图上放一层遮罩，如果要放一组遮罩，可以用addOverlays
+                //只接受坐标相关的方法,而轨迹渐变自然要通过速度控制。但传不进去，所以重写一个实现MKOverlay协议的类
                 [self.mapView addOverlay:step.polyline];
                 sumDistance += step.distance;
             }
