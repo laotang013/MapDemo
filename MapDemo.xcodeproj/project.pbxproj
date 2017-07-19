@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C95784BE1F1EFF490070E4DA /* KCAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C95784BD1F1EFF490070E4DA /* KCAnnotation.m */; };
 		C97DF6981F1E125E00D0A557 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C97DF6971F1E125E00D0A557 /* main.m */; };
 		C97DF69B1F1E125E00D0A557 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C97DF69A1F1E125E00D0A557 /* AppDelegate.m */; };
 		C97DF69E1F1E125E00D0A557 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C97DF69D1F1E125E00D0A557 /* ViewController.m */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C95784BC1F1EFF490070E4DA /* KCAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCAnnotation.h; sourceTree = "<group>"; };
+		C95784BD1F1EFF490070E4DA /* KCAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCAnnotation.m; sourceTree = "<group>"; };
 		C97DF6931F1E125E00D0A557 /* MapDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C97DF6971F1E125E00D0A557 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C97DF6991F1E125E00D0A557 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -105,6 +108,8 @@
 				C97DF69A1F1E125E00D0A557 /* AppDelegate.m */,
 				C97DF69C1F1E125E00D0A557 /* ViewController.h */,
 				C97DF69D1F1E125E00D0A557 /* ViewController.m */,
+				C95784BC1F1EFF490070E4DA /* KCAnnotation.h */,
+				C95784BD1F1EFF490070E4DA /* KCAnnotation.m */,
 				C97DF69F1F1E125E00D0A557 /* Main.storyboard */,
 				C97DF6A21F1E125E00D0A557 /* Assets.xcassets */,
 				C97DF6A41F1E125E00D0A557 /* LaunchScreen.storyboard */,
@@ -276,6 +281,7 @@
 			files = (
 				C97DF69E1F1E125E00D0A557 /* ViewController.m in Sources */,
 				C97DF69B1F1E125E00D0A557 /* AppDelegate.m in Sources */,
+				C95784BE1F1EFF490070E4DA /* KCAnnotation.m in Sources */,
 				C97DF6981F1E125E00D0A557 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
