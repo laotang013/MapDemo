@@ -293,16 +293,13 @@
 //                annotation.coordinate = step.polyline.coordinate;
 //                annotation.title = step.polyline.title;
 //                annotation.subtitle = step.polyline.subtitle;
-//                
-//                
 //                //添加大头针
 //                [self.mapView addAnnotation:annotation];
                 //添加路线 让我们可以在地图上放一层遮罩，如果要放一组遮罩，可以用addOverlays
                 //只接受坐标相关的方法,而轨迹渐变自然要通过速度控制。但传不进去，所以重写一个实现MKOverlay协议的类
                 
+                //思路:主要的点在如果获取到经度纬度以及速度 经度纬度可以组装成Point 进行绘制 速度进行控制渐变的颜色
                 [self.mapView addOverlay:step.polyline];
-                
-                
                 sumDistance += step.distance;
             }
             NSLog(@"总距离:%ld",sumDistance);
@@ -398,7 +395,12 @@ if([overlay isKindOfClass:[GradientPolylineOverlay class]]){
  
  MKPlacemark：类似于CLPlacemark，只是它在MapKit框架中，可以根据CLPlacemark创建MKPlacemark
     
-   4.地图路线：
+   5.坐标转换 https://cnbin.github.io/blog/2016/06/07/ioskai-fa-zhong-de-huo-xing-zuo-biao-xi-ji-ge-chong-zuo-biao-xi-zhuan-huan-suan-fa/
+     火星坐标:原理->保密局开发了一个系统，能将实际的坐标转换成虚拟的坐标，所有在中国销售的数字地图必须使用这个系统进行坐标转换之后方可上市。这种电子地图称为火星地图。GPS终端设备必须集成保密局提供的加密算法（集成工作由保密局完成），把从GPS卫星那里得到的坐标转换成虚拟坐标，然后再去火星地图上查找
+         地球坐标：指WGS84坐标系统
+         火星坐标：指使用国家保密插件人为偏移后的坐标
+         地球地图：指与地球坐标对应的客观真实的地图
+         火星地图：指经过加密偏移后的，与火星坐标对应的地图
  
  */
 
